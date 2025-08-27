@@ -7,10 +7,6 @@ import joblib
 model = joblib.load("models/stress_model.joblib")
 label_encoder = joblib.load("models/label_encoder.joblib")
 
-
-# =======================
-# Streamlit UI
-# =======================
 st.set_page_config(page_title="Student Stress Predictor", layout="centered")
 st.title("Student Stress Level Prediction")
 st.write("Fill in the factors below to predict stress level:")
@@ -54,10 +50,18 @@ features = pd.DataFrame([[
     "extracurricular_activities", "bullying"
 ])
 
+# Map numeric prediction to human-friendly label
+stress_labels = {
+    0: "Low",
+    1: "Moderate",
+    2: "High"
+}
+
 
 if st.button("Predict Stress Level"):
     prediction = model.predict(features)
     predicted_label = label_encoder.inverse_transform(prediction)[0]
+    label = stress_labels.get(predicted_label, "Unknown")
 
     st.subheader("Predicted Stress Level:")
-    st.success(f"**{predicted_label}**")
+    st.success(f"**{label}**")
