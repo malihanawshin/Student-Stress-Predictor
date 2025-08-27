@@ -4,8 +4,9 @@ import pandas as pd
 import joblib
 
 # Load trained model and encoder
-model = joblib.load("stress_model.pkl")
-label_encoder = joblib.load("label_encoder.pkl")
+model = joblib.load("models/stress_model.joblib")
+label_encoder = joblib.load("models/label_encoder.joblib")
+
 
 # =======================
 # Streamlit UI
